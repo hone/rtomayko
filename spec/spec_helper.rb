@@ -1,5 +1,4 @@
 require "tempfile"
-require "rtomayko"
 
 module Runner
   def run_spec(text)

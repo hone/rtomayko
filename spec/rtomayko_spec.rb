@@ -13,6 +13,7 @@ EOF
 
   it "skips the execution of an example when something failed before it" do
     output = run_spec <<EOF
+      require "#{File.dirname(__FILE__) + "/../lib/rtomayko"}"
       describe "skip spec", :type => :rtomayko do
         it { true.should be_false }
         it { true.should be_true }
