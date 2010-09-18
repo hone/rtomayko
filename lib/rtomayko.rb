@@ -28,8 +28,12 @@ module RSpec
     end
 
     class Reporter
+      def initialize(*formatters)
+        @formatters = formatters
+        @example_count = @failure_count = @pending_count = @skipped_count = 0
+      end
+
       def example_skipped(example)
-        @skipped_count ||= 0
         @skipped_count += 1
         notify :example_skipped, example
       end
