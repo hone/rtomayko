@@ -54,12 +54,26 @@ module RSpec
 
     module Formatters
       class BaseFormatter
+        def initialize(output)
+          @output = output
+          @example_count = @pending_count = @failure_count = 0
+          @examples = []
+          @failed_examples = []
+          @pending_examples = []
+          @skipped_examples = []
+          @example_group = nil
+        end
+
         def dump_summary(duration, example_count, failure_count, pending_count, skipped_count)
           @duration = duration
           @example_count = example_count
           @failure_count = failure_count
           @pending_count = pending_count
           @skipped_count = skipped_count
+        end
+
+        def example_skipped(example)
+          @skipped_examples << example
         end
       end
 
@@ -86,6 +100,13 @@ module RSpec
 
         def skipped_output(example)
           blue("#{current_indentation}#{example.description}")
+        end
+      end
+
+      class ProgressFormatter
+        def example_skipped(example)
+          super(example)
+          output.print blue('-')
         end
       end
     end
