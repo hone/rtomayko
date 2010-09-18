@@ -4,16 +4,18 @@ module RSpec
   module Core
     class Example
 
-      #delegate_to_metadata :skipped
+      delegate_to_metadata :type
 
       alias :run_without_dependency_resolving :run
       def run(example_group_instance, reporter)
-        others      = example_group_instance.class.examples
-        my_position = example_group_instance.class.examples.index(self)
+        if type == :rtomayko
+          others      = example_group_instance.class.examples
+          my_position = example_group_instance.class.examples.index(self)
 
-        if others[0...my_position].any? { |e| e.execution_result[:status] == "failed" }
-          @skipped = true
-          pending  = true # prevent it from running
+          if others[0...my_position].any? { |e| e.execution_result[:status] == "failed" }
+            @skipped = true
+            pending  = true # prevent it from running
+          end
         end
         run_without_dependency_resolving(example_group_instance, reporter)
       end
