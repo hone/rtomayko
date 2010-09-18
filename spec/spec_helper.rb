@@ -9,6 +9,8 @@ RSpec.configure do |config|
   config.mock_with ''
 end
 RSPEC_CONFIGURE
+      rtomayko_file = File.dirname(__FILE__) + "/../lib/rtomayko"
+      file.puts "require '#{rtomayko_file}'"
       file.puts text
     end
     `rspec #{path} 2>&1`
