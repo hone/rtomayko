@@ -1,5 +1,8 @@
 require "rspec/core"
 
+module RTomayko
+end
+
 module RSpec
   module Core
     class Example
