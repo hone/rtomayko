@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.authors     = ['Pedro Belo', 'Terence Lee']
   s.email       = ['pedrobelo@gmail.com', 'hone02@gmail.com']
   s.homepage    = "http://github.com/hone/rtomayko"
-  s.summary     = "Simple acceptance testing built on RSpec2"
+  s.summary     = "Simple acceptance testing, the skips all the tests after a failing test."
   s.description = s.summary
 
   s.required_rubygems_version = ">= 1.3.6"
