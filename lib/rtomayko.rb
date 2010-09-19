@@ -17,7 +17,7 @@ module RSpec
 
           if others[0...my_position].any? { |e| e.execution_result[:status] == "failed" }
             @skipped = true
-            pending  = true # prevent it from running
+            @metadata[:pending] = true
           end
         end
         run_without_dependency_resolving(example_group_instance, reporter)
