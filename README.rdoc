@@ -26,6 +26,8 @@ Here's some sample test:
 
 Here's the code for this:
 
+  require 'rtomayko'
+
   describe "Doing a simple test", :type => :rtomayko do
     it "this test will run" do
       true.should be_true
