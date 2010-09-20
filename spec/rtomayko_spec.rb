@@ -23,10 +23,10 @@ EOF
   context "with RTomayko" do
     it "displays the summary line properly" do
       spec << <<EOF
-      describe "skip spec", :type => :rtomayko do
-        it { true.should be_false }
-        it { true.should be_false }
-      end
+        describe "skip spec", :type => :rtomayko do
+          it { true.should be_false }
+          it { true.should be_false }
+        end
 EOF
       output = run_spec(spec)
 
@@ -35,11 +35,11 @@ EOF
 
     it "skips the execution of an example when something failed before it" do
       spec << <<EOF
-      describe "skip spec", :type => :rtomayko do
-        it { true.should be_false }
-        it { true.should be_false }
-        it { sleep(1);true.should be_false }
-      end
+        describe "skip spec", :type => :rtomayko do
+          it { true.should be_false }
+          it { true.should be_false }
+          it { sleep(1);true.should be_false }
+        end
 EOF
 
       output = run_spec(spec)
@@ -52,13 +52,13 @@ EOF
     context "with pending tests" do
       it "should mark pending tests as pending when before failed test" do
         spec << <<EOF
-        describe "skip spec", :type => :rtomayko do
-          it "true == false", :pending => true do
-            true.should be_false
+          describe "skip spec", :type => :rtomayko do
+            it "true == false", :pending => true do
+              true.should be_false
+            end
+            it { true.should be_false }
+            it { sleep(1);true.should be_false }
           end
-          it { true.should be_false }
-          it { sleep(1);true.should be_false }
-        end
 EOF
 
         output = run_spec(spec)
@@ -68,13 +68,13 @@ EOF
 
       it "should mark pending tests as skipped after failed test" do
         spec << <<EOF
-        describe "skip spec", :type => :rtomayko do
-          it { true.should be_false }
-          it { sleep(1);true.should be_false }
-          it "true == false", :pending => true do
-            true.should be_false
+          describe "skip spec", :type => :rtomayko do
+            it { true.should be_false }
+            it { sleep(1);true.should be_false }
+            it "true == false", :pending => true do
+              true.should be_false
+            end
           end
-        end
 EOF
 
         output = run_spec(spec)
