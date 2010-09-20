@@ -1,6 +1,6 @@
 = RTomayko
 
-Simple acceptance testing, the skips all the tests after a failing test. This is built on RSpec2 and leverages RSpec2's metadata.
+Simple acceptance testing, that skips all the tests after a failing test. This is built on RSpec2 and leverages RSpec2's metadata.
 
 == Installation
 
