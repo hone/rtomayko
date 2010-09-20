@@ -82,5 +82,41 @@ EOF
         output.should =~ /3 examples, 1 failure, 2 skipped/
       end
     end
+
+    describe "formatters" do
+      describe "progress formatter" do
+        let(:formatter) { 'progress' }
+
+        it "should display in progress format" do
+          spec << <<EOF
+            describe "skip spec", :type => :rtomayko do
+              it { true.should be_false }
+              it { true.should be_false }
+            end
+EOF
+          output = run_spec(spec, formatter)
+          output.should include("\e[31mF\e[0m\e[34m-")
+        end
+      end
+
+      describe "documentation formatter" do
+        let(:formatter) { 'doc' }
+
+        it "should display in documentation format" do
+          spec << <<EOF
+            describe "skip spec", :type => :rtomayko do
+              it "test 1" do
+                true.should be_false
+              end
+              it "test 2" do
+                true.should be_false
+              end
+            end
+EOF
+          output = run_spec(spec, formatter)
+          output.should include("skip spec\n\e[31m  test 1 (FAILED - 1)\e[0m\n\e[34m  test 2")
+        end
+      end
+    end
   end
 end

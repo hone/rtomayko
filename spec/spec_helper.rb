@@ -1,7 +1,7 @@
 require "tempfile"
 
 module Runner
-  def run_spec(text)
+  def run_spec(text, formatter = 'progress')
     path = "#{Dir.tmpdir}/#{Process.pid}"
     File.open(path, "w") do |file|
       file.puts <<RSPEC_CONFIGURE
@@ -12,7 +12,7 @@ RSPEC_CONFIGURE
 
       file.puts text
     end
-    `rspec #{path} 2>&1`
+    `rspec --format #{formatter} #{path} 2>&1`
   end
 end
 
