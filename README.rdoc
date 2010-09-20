@@ -10,6 +10,8 @@ TBD
 
 Here's some sample test:
 
+  (DocumentationFormatter)
+
   Doing a simple test
     this test will run
     this test will run too
@@ -21,6 +23,17 @@ Here's some sample test:
     1) this test will fail (FAILED -1)
        expected true to be false
   
+  Finished in 0.71876 seconds
+  5 examples, 1 failure, 2 skipped
+
+  (ProgressFormatter)
+
+  ..F--
+
+  Failures:
+    1) this test will fail (FAILED -1)
+       expected true to be false
+
   Finished in 0.71876 seconds
   5 examples, 1 failure, 2 skipped
 
