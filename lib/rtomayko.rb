@@ -33,9 +33,10 @@ module RSpec
     end
 
     class Reporter
+      alias :initialize_without_skipped_count :initialize
       def initialize(*formatters)
-        @formatters = formatters
-        @example_count = @failure_count = @pending_count = @skipped_count = 0
+        @skipped_count = 0
+        initialize_without_skipped_count(*formatters)
       end
 
       def example_skipped(example)
@@ -59,22 +60,17 @@ module RSpec
 
     module Formatters
       class BaseFormatter
+        alias :initialize_without_skipped_examples :initialize
         def initialize(output)
-          @output = output
-          @example_count = @pending_count = @failure_count = 0
-          @examples = []
-          @failed_examples = []
-          @pending_examples = []
+          @skipped_count    = 0
           @skipped_examples = []
-          @example_group = nil
+          initialize_without_skipped_examples(output)
         end
 
-        def dump_summary(duration, example_count, failure_count, pending_count, skipped_count)
-          @duration = duration
-          @example_count = example_count
-          @failure_count = failure_count
-          @pending_count = pending_count
+        alias :dump_summary_without_skipped_examples :dump_summary
+        def dump_summary(duration, example_count, failure_count, pending_count, skipped_count = 0)
           @skipped_count = skipped_count
+          dump_summary_without_skipped_examples(duration, example_count, failure_count, pending_count)
         end
 
         def example_skipped(example)
@@ -89,10 +85,9 @@ module RSpec
           output.puts colorise_summary(summary_line(example_count, failure_count, pending_count, skipped_count))
         end
 
+        alias :summary_line_without_skipped_examples :summary_line
         def summary_line(example_count, failure_count, pending_count, skipped_count)
-          summary = pluralize(example_count, "example")
-          summary << ", " << pluralize(failure_count, "failure")
-          summary << ", #{pending_count} pending" if pending_count > 0
+          summary = summary_line_without_skipped_examples(example_count, failure_count, pending_count)
           summary << ", #{skipped_count} skipped" if skipped_count > 0
           summary
         end
